@@ -30,13 +30,13 @@
     Clément Sicard\\
     \texttt{csicard@ethz.ch}\\
     D-INFK, ETH Zurich\\
-    \\ 
+    \\
     \textit{Supervised by:}\\
     Dr. Menna El-Assady$^1$, Dr. Sascha Langenbach$^1$, Catherine Pysden, MSc.$^2$\\
     \\
     $^1$ETH Zurich $^2$United Nations
     }
-    
+
 \begin{document}
 
 \maketitle
@@ -53,14 +53,14 @@
     }
 \end{center}
 
-\section{Introduction} \label{intro}
+\section{Introduction} \label{sec:introduction}
 The \href{https://digitallibrary.un.org/}{United Nations Digital Library (UNDL)} is a United Nations (UN) service that provides public access to a diverse range of UN documents: voting data, speeches, maps, and open access publications starting from 1979.
 All of these documents have been classified according to the \href{https://metadata.un.org/thesaurus/about?lang=en}{UNBIS Thesaurus}, a multilingual database of the controlled vocabulary used to describe UN documents and other materials in the Library's collection, with a more or less precise topic label.
 
 
 The main idea of this project is to create an analysis platform, with a network visualization of documents from a subset of the documents in the UN Digital Library. The analytics platform includes a basic Named Entity Recognition (NER) system to extract mentioned entities from the documents. The visualization part will be a network visualization, leveraging the versatility of the structure of a graph to display the extracted insights. Both parts aim at improving the search of documents by implementing an analytics layer on top of the existing search engine from the digital library.
 
-\section{Motivation \& Scope} \label{motivation}
+\section{Motivation \& Scope} \label{sec:motivation-scope}
 
 In the short-term, the goal of this project is to provide a MVP of a potential future UN product, in close contact with UN staff to make it conform to their needs. Specifically, this project will focus – as a first iteration – on Catherine Pysden's suggestion, "Women in Peacekeeping".
 
@@ -77,16 +77,18 @@ The project's long-term scope is to be used as a search engine for UN staff, mem
     \label{fig:architecture}
 \end{figure}
 
-\section{Final architecture}
+\section{Final architecture} \label{sec:final-architecture}
 
 The final architecture is a full-stack architecture, from the database to the frontend, handed in as a Docker compose stack \footnote{\href{https://github.com/ClementSicard/un-semun}{\faGithub{} \texttt{un-semun} repository}}.
 
-\subsection{\texttt{undl}: A Python library to wrap to the UN Digital Library API}
+\subsection{\texttt{undl}: A Python library to wrap to the UN Digital Library API} \label{ssec:undl-a-python-library-to-wrap-to-the-un-digital-library-api}
 
-\subsubsection*{Tech stack}
+\subsubsection*{Tech stack of \texttt{undl}} \label{sssec:tech-stack-of-undl}
 
-\subsection{\texttt{un-semun-frontend}: A React \& Sigma.js frontend}
-\subsubsection*{Tech stack}
+For the \texttt{undl} library, I used Python 3.10 with packages, with \texttt{requests} for the HTTP requests, \texttt{pandas} for the data manipulation, and \texttt{pydantic} for the data validation.
+
+\subsection{\texttt{un-semun-frontend}: A React \& Sigma.js frontend} \label{ssec:un-semun-frontend-a-react-sigma-js-frontend}
+\subsubsection*{Tech stack of \texttt{un-semun-frontend}} \label{sssec:tech-stack-of-un-semun-frontend}
 
 I used React combined with Typescript for the UI framework, as well as \href{https://chakra-ui.com/}{Chakra UI} for the UI components and \href{https://www.sigmajs.org/}{\texttt{Sigma.js}} via its React adapter \href{https://sim51.github.io/react-sigma/}{\texttt{@react-sigma}} for the network map. \href{https://graphology.github.io/}{\texttt{graphology}} was also used for graph manipulation in the frontend, mostly to iterate over graph elements to perform styling. The code is available here: \href{https://github.com/ClementSicard/un-semun-frontend}{\faGithub{} \texttt{un-semun-frontend}}.
 
@@ -103,25 +105,25 @@ I used React combined with Typescript for the UI framework, as well as \href{htt
 \end{figure}
 
 
-\subsection{\texttt{un-semun-api}: An API for \texttt{un-semun-frontend} using FastAPI}
-\subsubsection*{Tech stack}
+\subsection{\texttt{un-semun-api}: An API for \texttt{un-semun-frontend} using FastAPI} \label{ssec:un-semun-api-an-api-for-un-semun-frontend-using-fastapi}
+\subsubsection*{Tech stack of \texttt{un-semun-api}} \label{sssec:tech-stack-of-un-semun-api}
 
 \todo[inline]{Intermediary between frontend and Neo4j}
 \todo[inline]{Proxying the UNDL API using \texttt{undl} library}
 
 
-\subsection{\texttt{unml}: The machine learning pipeline}
+\subsection{\texttt{unml}: The machine learning pipeline} \label{ssec:unml-the-machine-learning-pipeline}
 
-\subsubsection*{Tech stack}
+\subsubsection*{Tech stack of \texttt{un-ml-pipeline}} \label{sssec:tech-stack-of-un-ml-pipeline}
 
-\subsubsection{Parts}
+\subsubsection{Parts} \label{sssec:parts}
 
 \todo[inline]{Parts}
 
-\subsubsection{Models}
+\subsubsection{Models} \label{sssec:models}
 \todo[inline]{Models}
 
-\subsubsection{API}
+\subsubsection{API} \label{sssec:api}
 \todo[inline]{API}
 \todo[inline]{Connection to Neo4j}
 
@@ -136,26 +138,21 @@ I used React combined with Typescript for the UI framework, as well as \href{htt
     \label{fig:ml-pipeline}
 \end{figure}
 
-\subsection{\texttt{undl} library}
-
-\subsubsection*{Tech stack}
-
-For the \texttt{undl} library, I used Python 3.10 with packages, with \texttt{requests} for the HTTP requests, \texttt{pandas} for the data manipulation, and \texttt{pydantic} for the data validation.
 % \clearpage
 
 
-\subsection{General tech stack notes}
+\subsection{General tech stack notes} \label{ssec:general-tech-stack-notes}
 
 For all the Python components, the dependencies are managed using \href{https://github.com/python-poetry/poetry}{\texttt{poetry}}. They are also all dockerized, and the whole stack is orchestrated using \href{https://docs.docker.com/compose/}{\texttt{docker-compose}}.
 
-\section{Limitations} \label{limit}
+\section{Limitations} \label{sec:limitations}
 
 
 The right of Figure \ref{fig:architecture} shows a simplified schema of the current UN Digital Library infrastructure.
 
 
-\section{Discussion \& future work}
+\section{Discussion \& future work} \label{sec:discussion-future-work}
 
-\section*{Conclusion}
+\section*{Conclusion} \label{sec:conclusion}
 
 \end{document}
