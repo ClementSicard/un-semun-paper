@@ -1,0 +1,66 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {res/} }
+\usepackage{svg}
+\usepackage{hyperref}
+\usepackage{todonotes}
+\usepackage{fontawesome}
+\usepackage{pdfpages}
+\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm]{geometry}
+
+\title{
+\centering
+\begin{minipage}{4cm}
+    \centering
+    \includesvg[width=4cm]{res/ai-center.svg}
+\end{minipage}
+\hfill % Add horizontal space
+\begin{minipage}{4cm}
+    \centering
+    \includesvg[width=4cm]{res/un.svg}
+\end{minipage}\\[1cm] % Add vertical space
+{\large Practical Work - Project Report}\\
+\textbf{SemUN: A Semantics-Powered Search Platform for the United Nations' Digital Library}
+}
+
+
+
+\author{
+    Clément Sicard\\
+    \texttt{csicard@ethz.ch}\\
+    D-INFK, ETH Zurich\\
+    \\
+    \textit{Supervised by:}\\
+    Dr. Menna El-Assady$^1$, Dr. Sascha Langenbach$^1$, Catherine Pysden, MSc.$^2$\\
+    \\
+    $^1$ETH Zurich $^2$United Nations
+    }
+
+\begin{document}
+
+\maketitle
+\todo[inline]{A faire}
+
+\begin{center}
+    \small\textbf{Keywords}:\\
+    \textit{
+        Natural Language Processing (NLP),
+        Named Entity Recognition (NER),
+        Graph databases,
+        Frontend,
+        Network Visualization
+    }
+\end{center}
+
+\input{sections/introduction}
+\input{sections/motivation-scope}
+
+\input{sections/final-architecture}
+\input{sections/limitations}
+\input{sections/discussion}
+\input{sections/conclusion}
+
+
+
+\end{document}

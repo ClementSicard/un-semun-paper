@@ -1,0 +1,53 @@
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{res/architecture-final.pdf}
+    % \includegraphics*[width=0.8\textwidth]{res/architecture-final.png}
+    \caption{Final stack architecture}
+    % change caption position to the bottom
+
+    \label{fig:architecture}
+\end{figure}
+
+\section{Final architecture} \label{sec:final-architecture}
+
+The final architecture is a full-stack architecture, from the database to the frontend, handed in as a Docker compose stack: \href{https://github.com/ClementSicard/un-semun}{\faGithub{} \texttt{un-semun}}.
+
+The project consists of $7$ \faGithub{} Github repos:
+
+\begin{itemize}
+    \item \href{https://github.com/ClementSicard/un-semun}{\faGithub{} \texttt{un-semun}}: The main repository with the \texttt{docker-compose} stack declaration.
+    \item \href{https://github.com/ClementSicard/un-semun-frontend}{\faGithub{} \texttt{un-semun-frontend}}: The frontend.
+    \item \href{https://github.com/ClementSicard/un-semun-api}{\faGithub{} \texttt{un-semun-api}}: The API for the frontend.
+    \item \href{https://github.com/ClementSicard/undl}{\faGithub{} \texttt{undl}}: The code for \texttt{undl}, a Python wrapper around the UN Digital Library API.
+    \item \href{https://github.com/ClementSicard/un-unbis-thesaurus-scraper}{\faGithub{} \texttt{un-unbis-thesaurus-scraper}}: A scraper for the UNBIS Thesaurus taxonomy website.
+    \item \href{https://github.com/ClementSicard/un-ml-pipeline}{\faGithub{} \texttt{un-ml-pipeline}}: Machine learning pipeline for UNDL documents.
+    \item \href{https://github.com/ClementSicard/un-semun-misc}{\faGithub{} \texttt{un-semun-misc}}: Diverse scripts used for the project.
+    \item \href{https://github.com/ClementSicard/un-semun-paper}{\faGithub{} \texttt{un-semun-paper}}: The code for this paper.
+\end{itemize}
+
+This paper will go through each of them in detail except for the paper repository.
+
+\input{sections/un-semun}
+
+\input{sections/un-semun-frontend}
+
+\input{sections/un-semun-api}
+
+\input{sections/undl}
+
+\input{sections/unbist}
+
+\input{sections/un-ml-pipeline}
+
+
+\input{sections/neo4j}
+\input{sections/un-semun-misc}
+
+
+
+
+
+\subsection{General tech stack notes} \label{ssec:general-tech-stack-notes}
+
+For all the Python components, the dependencies are managed using \href{https://github.com/python-poetry/poetry}{\texttt{poetry}}. They are also all dockerized, and the whole stack is orchestrated using \href{https://docs.docker.com/compose/}{\texttt{docker-compose}}.
