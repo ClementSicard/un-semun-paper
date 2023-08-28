@@ -51,4 +51,6 @@ This paper will go through each of them in detail except for the paper repositor
 
 \subsection{General tech stack notes} \label{ssec:general-tech-stack-notes}
 
-For all the Python components, the dependencies are managed using \href{https://github.com/python-poetry/poetry}{\texttt{poetry}}. They are also all dockerized, and the whole stack is orchestrated using \href{https://docs.docker.com/compose/}{\texttt{docker-compose}}.
+All the services composing of the stack are dockerized (i.e., they live in their own Docker container but their storage and network interface can be shared), and they are orchestrated and connected using \texttt{docker-compose}\footnote{\url{https://docs.docker.com/compose/}}.
+
+For all the Python components in the stack (the blue components in Figure \ref{fig:architecture}), the dependencies are managed using \texttt{poetry}\footnote{\url{https://github.com/python-poetry/poetry}}.
