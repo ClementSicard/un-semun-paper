@@ -1,4 +1,4 @@
-
+\pagebreak
 \subsection{Neo4j graph database} \label{ssec:neo4j-graph-database}
 
 A graph database seemed to be the best choice to store the data extracted from the documents and the links between them, since it captures this relationship property and is able to retrieve it very efficiently. \href{https://neo4j.com/}{\texttt{Neo4j}} seemed to be the most accessible one to use, but other solutions exist (such as \href{https://www.arangodb.com/}{\texttt{ArangoDB}} or \href{https://orientdb.org/}{\texttt{OrientDB}}).
@@ -8,20 +8,20 @@ Here is the chosen data model for this project:
 \subsubsection{Types of nodes} \label{sssec:types-of-nodes}
 
 \begin{itemize}
-    \item \texttt{Document}:
-          This node type represents a document in the UNDL. It contains the document's \texttt{id} from the library management system, its summary (created when the document was run through the machine learning pipeline), symbol (some internal UN classification for the document - for instance \texttt{A/C.5/43/SR.50}), publication date, title, URL, and publication location.
+      \item \texttt{Document}:
+            This node type represents a document in the UNDL. It contains the document's \texttt{id} from the library management system, its summary (created when the document was run through the machine learning pipeline), symbol (some internal UN classification for the document - for instance \texttt{A/C.5/43/SR.50}), publication date, title, URL, and publication location.
 
-    \item \texttt{Topic}:
-          This node type represents a topic in the sense of the UNBIS Thesaurus taxonomy. I made a scraper \href{https://github.com/ClementSicard/un-unbis-thesaurus-scraper}{\faGithub{} \texttt{un-unbis-thesaurus-scraper} (\ref{ssec:un-unbis-thesaurus-scraper-the-unbis-thesaurus-scraper})}, and used it to retrieve all the topics from the taxonomy website, and inserted them into the database instance. Each topic has \texttt{name}, \texttt{cluster}, \texttt{id} fields, as well as label fields for each of the $6$ official UN languages (\texttt{labelEn}, \texttt{labelFr}, \texttt{labelEs}, \texttt{labelAr}, \texttt{labelZh}, \texttt{labelRu}).
+      \item \texttt{Topic}:
+            This node type represents a topic in the sense of the UNBIS Thesaurus taxonomy. I made a scraper \repo{un-unbis-thesaurus-scraper} (\ref{ssec:un-unbis-thesaurus-scraper-the-unbis-thesaurus-scraper}), and used it to retrieve all the topics from the taxonomy website, and inserted them into the database instance. Each topic has \texttt{name}, \texttt{cluster}, \texttt{id} fields, as well as label fields for each of the $6$ official UN languages (\texttt{labelEn}, \texttt{labelFr}, \texttt{labelEs}, \texttt{labelAr}, \texttt{labelZh}, \texttt{labelRu}).
 
-    \item \texttt{MetaTopic}:
-          UNBIS Thesaurus is structured as a hierarchy, and a \texttt{MetaTopic} is one of the top-level topics in this hierarchy. It has the same fields as a \texttt{Topic} node, and there are $18$ of them.\footnote{\href{https://metadata.un.org/thesaurus/?lang=en}{The list of \texttt{MetaTopic} nodes from UNBIS Thesaurus website}}
+      \item \texttt{MetaTopic}:
+            UNBIS Thesaurus is structured as a hierarchy, and a \texttt{MetaTopic} is one of the top-level topics in this hierarchy. It has the same fields as a \texttt{Topic} node, and there are $18$ of them.\footnote{\href{https://metadata.un.org/thesaurus/?lang=en}{The list of \texttt{MetaTopic} nodes from UNBIS Thesaurus website}}
 
-    \item \texttt{Country}:
-          This node type represents a country as a member state of the UN. It has the same fields as a \texttt{Topic} node, and there are $193$ of them.\footnote{\href{https://www.un.org/en/about-us/member-states}{The list of the $193$ UN member states from the UN website}} The data to create these nodes was retrieved from the UN website, and the Cypher queries were generated using a Python script in \href{https://github.com/ClementSicard/un-semun-misc}{\faGithub{} \texttt{un-semun-misc}} (\ref{ssec:un-semun-misc}).
+      \item \texttt{Country}:
+            This node type represents a country as a member state of the UN. It has the same fields as a \texttt{Topic} node, and there are $193$ of them.\footnote{\href{https://www.un.org/en/about-us/member-states}{The list of the $193$ UN member states from the UN website}} The data to create these nodes was retrieved from the UN website, and the Cypher queries were generated using a Python script in \repo{un-semun-misc} (\ref{ssec:un-semun-misc}).
 
-    \item \texttt{UNBody}:
-          This node type represents a body of the United Nations. A body of the UN is an organizational unit within the United Nations system, established to carry out specific functions ranging from peacekeeping and humanitarian aid to diplomatic negotiations and policy recommendations. Some famous examples include the Security Council, the World Health Organization (WHO), the International Monetary Fund (IMF) etc... As for the countries, the data was retrieved from the UN website, and the Cypher queries were generated using a Python script in \href{https://github.com/ClementSicard/un-semun-misc}{\faGithub{} \texttt{un-semun-misc}} (\ref{ssec:un-semun-misc}).
+      \item \texttt{UNBody}:
+            This node type represents a body of the United Nations. A body of the UN is an organizational unit within the United Nations system, established to carry out specific functions ranging from peacekeeping and humanitarian aid to diplomatic negotiations and policy recommendations. Some famous examples include the Security Council, the World Health Organization (WHO), the International Monetary Fund (IMF) etc... As for the countries, the data was retrieved from the UN website, and the Cypher queries were generated using a Python script in \repo{un-semun-misc} (\ref{ssec:un-semun-misc}).
 
 
 \end{itemize}
@@ -31,16 +31,16 @@ Here is the chosen data model for this project:
 These nodes are linked together by the following relationships:
 
 \begin{itemize}
-    \item \texttt{-[REFERENCES]->}:
-          This relationship type links a \texttt{Document} node to a \texttt{Country} or \texttt{Entity} node, and is self-explanatory: the document references the target entity. This relationship is extracted by the machine learning pipeline.
+      \item \texttt{-[REFERENCES]->}:
+            This relationship type links a \texttt{Document} node to a \texttt{Country} or \texttt{Entity} node, and is self-explanatory: the document references the target entity. This relationship is extracted by the machine learning pipeline.
 
-    \item \texttt{-[HAS\_SUBTOPIC]->}:
-          Links a \texttt{MetaTopic} node to a \texttt{Topic} node to explicit the hierarchy between the two nodes. It was created by the scraper.
+      \item \texttt{-[HAS\_SUBTOPIC]->}:
+            Links a \texttt{MetaTopic} node to a \texttt{Topic} node to explicit the hierarchy between the two nodes. It was created by the scraper.
 
-    \item \texttt{-[IS\_ABOUT]->}:
-          Links a \texttt{Document} node to a \texttt{Topic} node to indicate that the \texttt{Document} has been classified by UN Digital Library staff as a document about the \texttt{Topic}. This relationship is extracted from the UNDL API response.
+      \item \texttt{-[IS\_ABOUT]->}:
+            Links a \texttt{Document} node to a \texttt{Topic} node to indicate that the \texttt{Document} has been classified by UN Digital Library staff as a document about the \texttt{Topic}. This relationship is extracted from the UNDL API response.
 
-    \item \texttt{-[RELATED\_TO]->}:
-          Links a \texttt{Topic} node to another \texttt{Topic} node indicate a semantic link between the two topics. This relationship is extracted from the UNBIS Thesaurus website, using the scraper as well.
+      \item \texttt{-[RELATED\_TO]->}:
+            Links a \texttt{Topic} node to another \texttt{Topic} node indicate a semantic link between the two topics. This relationship is extracted from the UNBIS Thesaurus website, using the scraper as well.
 
 \end{itemize}

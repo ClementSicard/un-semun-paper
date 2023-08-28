@@ -1,13 +1,24 @@
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{listings}
 \graphicspath{ {res/} }
 \usepackage{svg}
 \usepackage{hyperref}
 \usepackage{todonotes}
 \usepackage{fontawesome}
 \usepackage{pdfpages}
+\usepackage{makecell}
+\usepackage{booktabs}
 \usepackage[a4paper,width=150mm,top=25mm,bottom=25mm]{geometry}
+
+
+% Commands
+\newcommand{\repo}[1]{\href{https://github.com/#1}{\faGithub{} \texttt{#1}}}
+\newcommand*{\github}[1]{\href{https://github.com/ClementSicard/un-ml-pipeline/tree/main/\detokenize{#1}}{\faGithub{} \faExternalLink{}}}
+\newcommand*{\link}[1]{\href{#1}{Link \faExternalLink{}}}
+\newcommand*{\extlink}[2]{\href{#1}{\texttt{#2} \faExternalLink{}}}
+
 
 \title{
 \centering
@@ -40,7 +51,6 @@
 \begin{document}
 
 \maketitle
-\todo[inline]{A faire}
 
 \begin{center}
     \small\textbf{Keywords}:\\
