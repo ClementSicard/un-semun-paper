@@ -4,3 +4,22 @@
 \todo[inline]{Need to run on all the documents, not just on the "Women in Peacekeeping" documents.}
 \todo[inline]{Models are kind of limited sometimes, would probably need to retrain them}
 \todo[inline]{Someone more experienced in frontend design could make it even better }
+
+
+This approach can be seen as a first draft of a more general approach, applicable to the whole UN Digital Library. It therefore contains a few limitations that fell out of scope for this project:
+
+
+\begin{itemize}
+    \item \textbf{No support for multiple languages yet:} The UN Digital Library is available in six languages. The models used in the machine learning pipeline (\ref{ssec:un-ml-pipeline-the-machine-learning-pipeline}) currently only supports English on the summarization tasks, due to the lack of good and convenient enough pre-trained models for other languages. This could be the scope of a future work to train models for the other $5$ official UN languages. However, English is the most used language in the UN Digital Library and most recent documents are translated in all $6$ languages, so this limitation is not a major one.
+
+    \item \textbf{Limited support for different types of named entities:} Currently, only countries and UN bodies are actually ingested into the graph database, but the models also extract other named entities such as persons, organizations, locations, dates, etc. This could be the scope of a future work to ingest these entities into the graph database.
+
+    \item \textbf{No support for the full text search yet:} The full text search is not yet supported by the graph database nor the frontend. This could also be part of a future work.
+
+    \item \textbf{Performance on the ML tasks can be improved:} The models used to perform the ML tasks are state-of-the-art, but we could see an improvement by fine-tuning them on UN Digital Library specific documents.
+
+    \item \textbf{Availability of ML-enhanced documents:} Due to a lack of resources (cost, time and computing power), the machine learning pipeline has not been run on the millions of documents that compose the UN Digital Library. Before deploying such a system in production, it would be necessary to run the pipeline on all the documents and ingest the results into the graph database, so that the frontend can display the documents consistently, on any query, and not only the ones linked to the \texttt{"Women in peacekeeping"} prompt - indeed, documents will only be present in the database if they have been passed through the ML pipeline, which ingests the documents at the end of the pipeline.
+
+\end{itemize}
+
+
