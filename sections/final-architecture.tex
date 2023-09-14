@@ -17,7 +17,7 @@ The project consists of $7$ \faGithub{} GitHub repos:
 
 \begin{itemize}
     \item \repo{un-semun}: The main repository with the \texttt{docker-compose} stack declaration.
-    \item \repo{un-semun-frontend}: The frontend.
+    \item \repo{un-semun-front}: The frontend.
     \item \repo{un-semun-api}: The API for the frontend.
     \item \repo{undl}: The code for \texttt{undl}, a Python wrapper around the UN Digital Library API.
     \item \repo{un-unbis-thesaurus-scraper}: A scraper for the UNBIS Thesaurus taxonomy website.
@@ -26,10 +26,17 @@ The project consists of $7$ \faGithub{} GitHub repos:
     \item \repo{un-semun-paper}: The code for this paper.
 \end{itemize}
 
-This paper will go through each of them in detail except for the paper repository.
+It also includes a side UNBIS Thesaurus visualization that was created to get familiar with React and network visualization tools:
+\begin{itemize}
+    \item
+          \href{https://un-graph-ui.vercel.app/}{\faCloud{} \texttt{https://un-graph-ui.vercel.app/}}.
+\end{itemize}
 
 
-\input{sections/un-semun-frontend}
+This paper will go through each of the repositories in detail except for the paper one.
+
+
+\input{sections/un-semun-front}
 
 \input{sections/un-semun-api}
 
@@ -49,8 +56,8 @@ This paper will go through each of them in detail except for the paper repositor
 
 
 
-\subsection{General tech stack notes} \label{ssec:general-tech-stack-notes}
+\subsection{General notes on the stack} \label{ssec:general-tech-stack-notes}
 
 All the services composing of the stack are dockerized (i.e., they live in their own Docker container but their storage and network interface can be shared), and they are orchestrated and connected using \texttt{docker-compose}\footnote{\url{https://docs.docker.com/compose/}}.
 
-For all the Python components in the stack (the blue components in Figure \ref{fig:architecture}), the dependencies are managed using \texttt{poetry}\footnote{\url{https://github.com/python-poetry/poetry}}.
+For all the Python components in the stack (the blue components in Figure \ref{fig:architecture}), the dependencies are managed using \texttt{poetry}\footnote{\url{https://github.com/python-poetry/poetry}}, with \texttt{black}\footnote{\url{https://github.com/psf/black}} formatter and \texttt{ruff}\footnote{\url{https://github.com/astral-sh/ruff}} linter.

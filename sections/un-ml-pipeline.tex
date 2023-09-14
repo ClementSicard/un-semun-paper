@@ -63,6 +63,8 @@ For summarization, one of big challenges when choosing a model was that it shoul
     \item \textbf{Use transformers models that offer a very large input size}: Some models like LongT5 or LongFormer replace the self-attention mechanism with a custom attention mechanism that scales linearly with the input. This allows them to handle very large inputs. However, they are not as accurate as the other models, and they are also slower to train and to run inference on.
 \end{itemize}
 
+Practically, since most documents were even larger than the maximum input size of the LongT5 model, I decided to combine both approaches. That is what gave the best results in a reasonable time.
+
 Here is a comparison of the models I used for the summarization task:
 
 \begin{table}[!ht]
@@ -73,7 +75,7 @@ Here is a comparison of the models I used for the summarization task:
                                       & \textbf{DistilBART-CNN}                                     & \textbf{DistillBART-XSUM}                                    & \textbf{DistilPegasus-CNN}                                       & \textbf{LongFormer} (\textit{default})                       & \textbf{LongT5}                                                                \\
         \midrule
         \textbf{File}                 & \github{unml/models/summarize/DistilBARTCNN.py}             & \github{unml/models/summarize/DistilBARTXSUM.py}             & \github{unml/models/summarize/DistilPegasusCNN.py}               & \github{unml/models/summarize/LED.py}                        & \github{unml/models/summarize/LongT5.py}                                       \\
-        \textbf{Paper}                & \extlink{https://arxiv.org/pdf/2010.13002.pdf}{arXiv}       & \extlink{https://arxiv.org/pdf/2010.13002.pdf}{arXiv}        & \extlink{https://arxiv.org/pdf/2010.13002.pdf}{arXiv}            & \extlink{https://arxiv.org/pdf/2004.05150}{arXiv}            & \extlink{https://arxiv.org/pdf/2112.07916}{arXiv}                              \\
+        \textbf{Paper}                & \extlink{https://arxiv.org/pdf/2010.13002.pdf}{arXiv}       & \extlink{https://arxiv.org/pdf/2010.13002.pdf}{arXiv}        & \extlink{https://arxiv.org/pdf/2010.13002.pdf}{arXiv}            & \extlink{https://arxiv.org/pdf/2004.05150.pdf}{arXiv}        & \extlink{https://arxiv.org/pdf/2112.07916.pdf}{arXiv}                          \\
         \textbf{Authors}              & Shleifer et al.                                             & Shleifer et al.                                              & Shleifer et al.                                                  & Beltagy et al.                                               & Guo et al.                                                                     \\
         \textbf{Company}              & HuggingFace                                                 & HuggingFace                                                  & Google                                                           & Allen AI                                                     & Google                                                                         \\
         \textbf{Year}                 & 2020                                                        & 2020                                                         & 2020                                                             & 2020                                                         & 2022                                                                           \\
@@ -95,15 +97,15 @@ For Named Entity Recognition (NER) tasks, other models than FLERT work slightly 
     \small
     \begin{tabular}{p{4cm}p{3.2cm} p{2.5cm} p{4cm}}
         \toprule
-                                   & \textbf{FLERT} (\textit{default S})                  & \textbf{RoBERTa}                                                      & \textbf{spaCy  \texttt{en\_core\_web\_trf}}         \\
+                                   & \textbf{FLERT} (\textit{default S})                   & \textbf{RoBERTa}                                                      & \textbf{spaCy  \texttt{en\_core\_web\_trf}}         \\
         \midrule
-        \textbf{File}              & \github{unml/models/ner/FLERT.py}                    & \github{unml/models/ner/RoBERTa.py}                                   & \github{unml/models/summarize/DistilPegasusCNN.py}  \\
-        \textbf{Paper}             & \extlink{https://arxiv.org/abs/2011.06993}{arXiv}    & \extlink{https://arxiv.org/abs/1907.11692}{arXiv}                     & -                                                   \\
-        \textbf{Authors}           & Akbik et al.                                         & Liu et al.                                                            & -                                                   \\
-        \textbf{Company}           & Flair NLP                                            & Meta (fine-tune HuggingFace)                                          & spaCy                                               \\
-        \textbf{Year}              & 2020                                                 & 2019                                                                  & 2023 (\texttt{v3.6.1})                              \\
-        \textbf{HuggingFace Model} & \link{https://huggingface.co/flair/ner-english-fast} & \link{https://huggingface.co/Jean-Baptiste/roberta-large-ner-english} & \link{https://huggingface.co/spacy/en_core_web_trf} \\
-        \textbf{Params}            & {20M(S) 560M(L)}                                     & 355M                                                                  & 355M                                                \\
+        \textbf{File}              & \github{unml/models/ner/FLERT.py}                     & \github{unml/models/ner/RoBERTa.py}                                   & \github{unml/models/summarize/DistilPegasusCNN.py}  \\
+        \textbf{Paper}             & \extlink{https://arxiv.org/abs/2011.06993.pdf}{arXiv} & \extlink{https://arxiv.org/abs/1907.11692.pdf}{arXiv}                 & -                                                   \\
+        \textbf{Authors}           & Akbik et al.                                          & Liu et al.                                                            & -                                                   \\
+        \textbf{Company}           & Flair NLP                                             & Meta (fine-tune HuggingFace)                                          & spaCy                                               \\
+        \textbf{Year}              & 2020                                                  & 2019                                                                  & 2023 (\texttt{v3.6.1})                              \\
+        \textbf{HuggingFace Model} & \link{https://huggingface.co/flair/ner-english-fast}  & \link{https://huggingface.co/Jean-Baptiste/roberta-large-ner-english} & \link{https://huggingface.co/spacy/en_core_web_trf} \\
+        \textbf{Params}            & {20M(S) 560M(L)}                                      & 355M                                                                  & 355M                                                \\
         \bottomrule
     \end{tabular}
     \caption{Models used for NER task}

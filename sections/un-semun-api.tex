@@ -1,13 +1,16 @@
 
-\subsection{\texttt{un-semun-api}: An API for \texttt{un-semun-frontend} using \texttt{FastAPI}} \label{ssec:un-semun-api-an-api-for-un-semun-frontend-using-fastapi}
+\subsection{\texttt{un-semun-api}: An API for \texttt{un-semun-front} using \texttt{FastAPI}} \label{ssec:un-semun-api-an-api-for-un-semun-front-using-fastapi}
 
-The \texttt{un-semun-api} Python package was developed to provide an API for the frontend. It is a \href{https://fastapi.tiangolo.com/}{\texttt{FastAPI}} application, which is a Python framework for building APIs. It is a modern framework, which is fast, easy to use, and well documented. One nice feature is that it is also coupled with \href{https://docs.pydantic.dev/latest/}{\texttt{pydantic}} to perform data validation and serialization. This is very useful to ensure that the data sent to the frontend is valid, and to avoid having to write boilerplate code for serialization and deserialization.
+The \texttt{un-semun-api} Python package was developed to provide an API for the frontend. It is a \href{https://fastapi.tiangolo.com/}{\texttt{FastAPI}} application, which is a Python framework for quickly and easily building APIs. It is a modern framework, which is fast, easy to use, and well documented. One nice feature is that it is also coupled with \href{https://docs.pydantic.dev/latest/}{\texttt{pydantic}} to perform data validation and serialization. This is very useful to ensure that the data sent to the frontend is valid, and to avoid having to write boilerplate code for (de)serialization.
 
-This package mainly acts as a proxy between the frontend and the UNDL API, and is composed of $2$ main endpoints:
+This package mainly acts as a proxy between the frontend and the UNDL API through \repo{undl} library (\ref{ssec:undl-a-python-library-to-wrap-to-the-un-digital-library-api}), and is composed of $3$ main endpoints:
 
 \begin{itemize}
     \item \texttt{/search}: This endpoint is used to perform a search query.  It takes a \texttt{GET} HTTP request with query parameter the prompt. Then, it uses \texttt{undl} (\ref{ssec:undl-a-python-library-to-wrap-to-the-un-digital-library-api}) library to perform the search on the UNDL API and returns the results to the frontend.
+
     \item \texttt{/graph}: This endpoint is used to get the graph corresponding to the above search query, also with an HTTP \texttt{GET} request with the prompt as unique query parameter. To optimize the process, it first gets the IDs of all documents returned by the search query on the given prompt, then it queries the Neo4j graph database (\ref{ssec:neo4j-graph-database}) to get the graph corresponding to these documents. Finally, it returns the graph to the frontend as \texttt{JSON} structured according to the format expected by the \href{https://graphology.github.io/}{\texttt{graphology}} Typescript library, which is used to model a graph and manipulate it as a programmatic object.
+
+    \item \texttt{/query}: This endpoint creates a JSON with the response of both methods. It has been created to be directly queries by the frontend, and to obtain both the search results and the graph to display in a single HTTP request. It is actually the only one used in the latest version of the frontend.
 \end{itemize}
 
-Note that the API is dockerized and that it offers a basic query caching mechanism to avoid querying the UNDL API too often. This is done using a simple \texttt{dict} in memory, which is not ideal but enough for the scope of this project.
+Note that the API is dockerized and that it offers a basic in-memory query caching mechanism to avoid querying the UNDL API too often. This is done using a simple Python \texttt{dict} object in memory, which is not ideal but enough for the scope of this project.

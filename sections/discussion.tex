@@ -1,16 +1,11 @@
 
 \section{Discussion \& future work} \label{sec:discussion-future-work}
 
-\todo[inline]{Need to run on all the documents, not just on the "Women in Peacekeeping" documents.}
-\todo[inline]{Models are kind of limited sometimes, would probably need to retrain them}
-\todo[inline]{Someone more experienced in frontend design could make it even better }
-
-
 This approach can be seen as a first draft of a more general approach, applicable to the whole UN Digital Library. It therefore contains a few limitations that fell out of scope for this project:
 
 
 \begin{itemize}
-    \item \textbf{No support for multiple languages yet:} The UN Digital Library is available in six languages. The models used in the machine learning pipeline (\ref{ssec:un-ml-pipeline-the-machine-learning-pipeline}) currently only supports English on the summarization tasks, due to the lack of good and convenient enough pre-trained models for other languages. This could be the scope of a future work to train models for the other $5$ official UN languages. However, English is the most used language in the UN Digital Library and most recent documents are translated in all $6$ languages, so this limitation is not a major one.
+    \item \textbf{No support for multiple languages yet:} The UN Digital Library is available in six languages. The models used in the machine learning pipeline (\ref{ssec:un-ml-pipeline-the-machine-learning-pipeline}) currently only support English on the summarization tasks, due to the lack of good and convenient enough pre-trained models for the other official languages. This could be the scope of a future work to train models for the other $5$ official UN languages. However, English is the most used language in the UN Digital Library and most recent documents are translated in all $6$ languages, so this limitation is not a major one.
 
     \item \textbf{Limited support for different types of named entities:} Currently, only countries and UN bodies are actually ingested into the graph database, but the models also extract other named entities such as persons, organizations, locations, dates, etc. This could be the scope of a future work to ingest these entities into the graph database.
 
